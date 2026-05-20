@@ -15,7 +15,7 @@ permissions:
 
 jobs:
   process:
-    if: contains(github.event.issue.labels.*.name, 'reading-log')
+    if: contains(github.event.issue.labels.*.name, 'reading-log') || startsWith(github.event.issue.title, '[Reading Log]')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6

@@ -4,18 +4,17 @@ env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 on:
-  schedule:
-    - cron: "0 * * * *"
+  issues:
+    types: [closed]
   workflow_dispatch:
 
 permissions:
   contents: write
   issues: read
-  pages: write
-  id-token: write
 
 jobs:
   process:
+    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'issues' && (contains(github.event.issue.labels.*.name, 'paper-suggestion') || startsWith(github.event.issue.title, '[Paper Suggestion]')))
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -24,7 +23,7 @@ jobs:
           node-version: 24
       - run: npm install
       - name: Fetch closed paper suggestions
-        run: gh issue list --label paper-suggestion --state closed --limit 100 --json number,title,body > /tmp/paper-suggestions.json
+        run: gh issue list --state closed --limit 100 --json number,title,body,labels > /tmp/paper-suggestions.json
         env:
           GH_TOKEN: ${{ github.token }}
       - name: Process paper suggestions
@@ -34,13 +33,5 @@ jobs:
         id: auto-commit-action
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "Add hourly paper suggestions"
+          commit_message: "Add paper suggestions from closed issues"
           file_pattern: public/data/papers.json
-      - run: npm run build
-        if: steps.auto-commit-action.outputs.changes_detected == 'true'
-      - uses: actions/upload-pages-artifact@v5
-        if: steps.auto-commit-action.outputs.changes_detected == 'true'
-        with:
-          path: ./dist
-      - uses: actions/deploy-pages@v4
-        if: steps.auto-commit-action.outputs.changes_detected == 'true'

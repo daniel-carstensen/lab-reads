@@ -139,6 +139,14 @@ if (!Array.isArray(issues)) {
   throw new Error("Paper suggestions input must be an array.");
 }
 
+function isPaperSuggestion(issue) {
+  const labels = Array.isArray(issue.labels) ? issue.labels : [];
+  return (
+    labels.some((label) => label?.name === "paper-suggestion") ||
+    String(issue.title ?? "").toLowerCase().startsWith("[paper suggestion]")
+  );
+}
+
 const papersPath = path.join(dataDir, "papers.json");
 const papers = await readJson(papersPath);
 const existingIssueNumbers = new Set(
@@ -146,8 +154,14 @@ const existingIssueNumbers = new Set(
 );
 const existingIds = new Set(papers.map((paper) => paper.id));
 const additions = [];
+const suggestionIssues = issues.filter(isPaperSuggestion);
 
-for (const issue of issues.sort((a, b) => a.number - b.number)) {
+console.log(`Fetched ${issues.length} closed issue${issues.length === 1 ? "" : "s"}.`);
+console.log(
+  `Matched ${suggestionIssues.length} paper suggestion${suggestionIssues.length === 1 ? "" : "s"}.`
+);
+
+for (const issue of suggestionIssues.sort((a, b) => a.number - b.number)) {
   if (!Number.isInteger(issue.number)) {
     throw new Error("Every suggestion issue must include a numeric number.");
   }

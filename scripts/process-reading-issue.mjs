@@ -70,6 +70,12 @@ if (!Number.isInteger(issueNumber) || issueNumber < 1) {
   throw new Error("ISSUE_NUMBER must be a positive integer.");
 }
 
+const issueTitle = process.env.ISSUE_TITLE ?? "";
+if (!issueTitle.startsWith("[Reading Log]")) {
+  console.log(`Issue #${issueNumber} is not a reading log. No changes made.`);
+  process.exit(0);
+}
+
 const issueBody = process.env.ISSUE_BODY ?? "";
 const parsed = parseIssueForm(issueBody);
 

@@ -53,7 +53,7 @@ For manual edits, edit `public/data/papers.json`. Each paper needs an `id`, `tit
 
 Weeks use ISO-style labels such as `2026-W21`. Paper IDs should be stable because reading logs reference them.
 
-For GitHub Issue suggestions, lab members can submit the **Suggest paper** form. Closed `paper-suggestion` issues are processed hourly by `.github/workflows/process-paper-suggestions.yml`. The processor automatically accepts every closed suggestion, generates a stable paper ID, appends the paper to `public/data/papers.json`, and commits the batch once per hour.
+For GitHub Issue suggestions, lab members can submit the **Suggest paper** form. When a `paper-suggestion` issue is closed, `.github/workflows/process-paper-suggestions.yml` processes it immediately. The processor automatically accepts every closed suggestion, uses the submitted paper ID, appends the paper to `public/data/papers.json`, and commits the JSON update.
 
 The suggestion form asks for a `paper_id` directly. Use lowercase letters, numbers, and hyphens, such as:
 
@@ -75,7 +75,7 @@ When a maintainer closes a `reading-log` issue, `.github/workflows/process-readi
 - appends a new entry to `public/data/reading_logs.json`
 - commits the updated JSON file back to the repository
 
-The normal Pages deploy workflow then rebuilds the site. Reading logs deploy immediately after their processing commit; paper suggestions deploy after the hourly suggestion-processing commit.
+Reading logs deploy immediately after their processing commit. Paper suggestions are committed immediately when their issue closes, then published by the hourly Pages deploy schedule or by manually running the deploy workflow.
 
 ## Deploy With GitHub Pages
 
@@ -85,7 +85,7 @@ In GitHub, set:
 Repository Settings → Pages → Source: GitHub Actions
 ```
 
-The deploy workflow builds on pushes to `main` and can also be run manually from the Actions tab.
+The deploy workflow builds on pushes to `main` or `master`, runs once per hour, and can also be run manually from the Actions tab.
 
 ## Customize Scoring And Badges
 
