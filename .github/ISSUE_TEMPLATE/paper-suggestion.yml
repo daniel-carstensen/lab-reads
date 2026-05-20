@@ -7,7 +7,7 @@ body:
     id: paper_id
     attributes:
       label: Paper ID
-      description: Use lowercase letters, numbers, and hyphens. Example: shepard-1987-generalization
+      description: "Use lowercase letters, numbers, and hyphens. Example: shepard-1987-generalization"
       placeholder: "author-2026-short-title"
     validations:
       required: true
