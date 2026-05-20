@@ -69,7 +69,6 @@ export default function App() {
     });
     return {
       weeks,
-      allWeeks: Array.from(new Set([...weeks, ...allWeeks])).sort(),
       tags,
       currentWeek,
       filteredPapers,

@@ -6,7 +6,7 @@ No database, server backend, external auth, Firebase, Supabase, or real-time col
 
 ## Local Setup
 
-Install Node 20 or newer, then run:
+Install Node 24 or newer, then run:
 
 ```bash
 npm install
