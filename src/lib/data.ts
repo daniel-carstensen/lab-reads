@@ -2,7 +2,9 @@ import type { AppData, Member, Paper, ReadingLog, SiteConfig } from "../types/da
 
 async function fetchJson<T>(path: string): Promise<T> {
   const base = import.meta.env.BASE_URL;
-  const response = await fetch(`${base}data/${path}`);
+  const response = await fetch(`${base}data/${path}?v=${Date.now()}`, {
+    cache: "no-store"
+  });
   if (!response.ok) {
     throw new Error(`Unable to load ${path}: ${response.status}`);
   }
