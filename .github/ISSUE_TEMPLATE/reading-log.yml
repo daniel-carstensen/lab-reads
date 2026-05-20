@@ -1,0 +1,70 @@
+name: Log a paper reading
+description: Record that you read, skimmed, discussed, or presented a paper.
+title: "[Reading Log]: "
+labels: ["reading-log"]
+body:
+  - type: input
+    id: member_id
+    attributes:
+      label: Member ID
+      description: Use your member ID from members.json.
+      placeholder: "daniel"
+    validations:
+      required: true
+
+  - type: input
+    id: paper_id
+    attributes:
+      label: Paper ID
+      description: Use the paper ID from the website.
+      placeholder: "shepard-1987-generalization"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: status
+    attributes:
+      label: Reading status
+      options:
+        - planned
+        - skimmed
+        - read
+        - deep_read
+        - presented
+    validations:
+      required: true
+
+  - type: dropdown
+    id: rating
+    attributes:
+      label: Rating
+      description: Optional usefulness rating.
+      options: ["1", "2", "3", "4", "5"]
+    validations:
+      required: false
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: A short note, summary, critique, or takeaway.
+
+  - type: textarea
+    id: discussion_question
+    attributes:
+      label: Discussion question
+      description: Optional question for lab discussion.
+
+  - type: dropdown
+    id: reaction
+    attributes:
+      label: Reaction
+      options:
+        - "🔥 Useful"
+        - "🧠 Theoretical"
+        - "🧪 Methods"
+        - "🤔 Confusing"
+        - "📌 Important"
+        - "🧵 Needs discussion"
+    validations:
+      required: false

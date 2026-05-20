@@ -1,0 +1,44 @@
+name: Suggest a paper
+description: Suggest a paper for a future reading week.
+title: "[Paper Suggestion]: "
+labels: ["paper-suggestion"]
+body:
+  - type: input
+    id: title
+    attributes:
+      label: Paper title
+    validations:
+      required: true
+
+  - type: input
+    id: authors
+    attributes:
+      label: Authors
+      placeholder: "Author et al."
+
+  - type: input
+    id: year
+    attributes:
+      label: Year
+
+  - type: input
+    id: url
+    attributes:
+      label: URL or DOI
+
+  - type: input
+    id: suggested_week
+    attributes:
+      label: Suggested week
+      placeholder: "2026-W21"
+
+  - type: input
+    id: tags
+    attributes:
+      label: Tags
+      placeholder: "memory, hippocampus, modeling"
+
+  - type: textarea
+    id: reason
+    attributes:
+      label: Why should the lab read this?

@@ -1,0 +1,32 @@
+name: Process reading log issue
+
+on:
+  issues:
+    types: [closed]
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  process:
+    if: contains(github.event.issue.labels.*.name, 'reading-log')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install
+      - name: Process reading log issue
+        run: node scripts/process-reading-issue.mjs
+        env:
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+      - run: npm run validate:data
+      - name: Commit updated reading logs
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Add reading log from issue #${{ github.event.issue.number }}"
+          file_pattern: public/data/reading_logs.json

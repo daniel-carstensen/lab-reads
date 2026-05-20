@@ -1,0 +1,17 @@
+{
+  "labName": "Cognitive Neuroscience Paper Tracker",
+  "siteSubtitle": "Weekly reading, notes, streaks, and paper quests",
+  "timezone": "America/New_York",
+  "repoOwner": "your-github-org",
+  "repoName": "lab-paper-tracker",
+  "points": {
+    "planned": 0,
+    "skimmed": 1,
+    "read": 3,
+    "deep_read": 5,
+    "presented": 6,
+    "notes_bonus": 1,
+    "discussion_question_bonus": 1
+  },
+  "currentWeekMode": "latest"
+}

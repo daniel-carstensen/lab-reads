@@ -1,0 +1,44 @@
+[
+  {
+    "id": "daniel",
+    "displayName": "Daniel",
+    "avatarEmoji": "🧠",
+    "role": "Lab Manager",
+    "active": true
+  },
+  {
+    "id": "maya",
+    "displayName": "Maya",
+    "avatarEmoji": "🧪",
+    "role": "Postdoc",
+    "active": true
+  },
+  {
+    "id": "sam",
+    "displayName": "Sam",
+    "avatarEmoji": "📈",
+    "role": "Graduate Student",
+    "active": true
+  },
+  {
+    "id": "li",
+    "displayName": "Li",
+    "avatarEmoji": "🧭",
+    "role": "Graduate Student",
+    "active": true
+  },
+  {
+    "id": "nora",
+    "displayName": "Nora",
+    "avatarEmoji": "✨",
+    "role": "Research Assistant",
+    "active": true
+  },
+  {
+    "id": "alex",
+    "displayName": "Alex",
+    "avatarEmoji": "🎧",
+    "role": "Visiting Scholar",
+    "active": true
+  }
+]
