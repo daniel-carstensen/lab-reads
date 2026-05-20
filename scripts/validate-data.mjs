@@ -66,6 +66,9 @@ function validatePapers(papers) {
   assertUnique(papers, (paper) => paper.id, "Paper");
   for (const paper of papers) {
     if (typeof paper.id !== "string" || !paper.id.trim()) fail("Paper id must be a non-empty string.");
+    if (typeof paper.id === "string" && !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(paper.id)) {
+      fail(`Paper ${paper.id} has invalid id format. Use lowercase letters, numbers, and hyphens.`);
+    }
     for (const field of ["title", "authors", "week"]) {
       if (typeof paper[field] !== "string" || !paper[field].trim()) {
         fail(`Paper ${paper.id ?? "(unknown)"} must have ${field}.`);
@@ -75,6 +78,9 @@ function validatePapers(papers) {
     if (!isValidWeek(paper.week)) fail(`Paper ${paper.id ?? "(unknown)"} has invalid week ${paper.week}.`);
     if (!Array.isArray(paper.tags) || !paper.tags.every((tag) => typeof tag === "string" && tag.trim())) {
       fail(`Paper ${paper.id ?? "(unknown)"} must have tags as an array of strings.`);
+    }
+    if (paper.sourceIssue !== undefined && (!Number.isInteger(paper.sourceIssue) || paper.sourceIssue < 1)) {
+      fail(`Paper ${paper.id ?? "(unknown)"} sourceIssue must be a positive integer.`);
     }
   }
 }

@@ -33,48 +33,44 @@ export function Leaderboard({
         {rows.map((row, index) => {
           const badges = getEarnedBadges(row.member, papers, logs, allWeeks);
           return (
-            <article
-              key={row.member.id}
-              className="rounded-lg border border-ink/10 bg-paper/60 p-4"
-            >
-              <div className="flex flex-wrap items-center justify-between gap-3">
-                <div className="flex items-center gap-3">
-                  <span className="grid h-9 w-9 place-items-center rounded-full bg-lagoon/10 text-sm font-bold text-lagoon">
-                    {index + 1}
-                  </span>
-                  <div>
-                    <h3 className="font-semibold text-ink">
-                      {row.member.displayName}
-                    </h3>
-                    <p className="text-xs text-ink/55">{row.member.role ?? "Lab member"}</p>
-                  </div>
+            <article key={row.member.id} className="rounded-lg border border-ink/10 bg-paper/60 p-4">
+              <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3">
+                <span className="grid h-9 w-9 place-items-center rounded-full bg-lagoon/10 text-sm font-bold text-lagoon">
+                  {index + 1}
+                </span>
+                <div className="min-w-0">
+                  <h3 className="truncate font-semibold text-ink">{row.member.displayName}</h3>
+                  <p className="truncate text-xs text-ink/55">{row.member.role ?? "Lab member"}</p>
                 </div>
-                <p className="text-2xl font-bold text-ink">{row.totalPoints} pts</p>
+                <div className="min-w-[4.5rem] text-right">
+                  <p className="font-mono text-2xl font-bold tabular-nums text-ink">{row.totalPoints}</p>
+                  <p className="text-xs font-semibold uppercase tracking-wide text-ink/55">pts</p>
+                </div>
               </div>
-              <dl className="mt-4 grid grid-cols-2 gap-3 text-sm sm:grid-cols-6">
-                <div>
-                  <dt className="text-ink/55">Papers</dt>
-                  <dd className="font-semibold">{row.papersRead}</dd>
+              <dl className="mt-4 grid grid-cols-2 gap-2 text-sm sm:grid-cols-3 xl:grid-cols-2">
+                <div className="rounded-md bg-white/75 p-2">
+                  <dt className="text-xs text-ink/55">Papers</dt>
+                  <dd className="font-mono font-semibold tabular-nums">{row.papersRead}</dd>
                 </div>
-                <div>
-                  <dt className="text-ink/55">Deep reads</dt>
-                  <dd className="font-semibold">{row.deepReads}</dd>
+                <div className="rounded-md bg-white/75 p-2">
+                  <dt className="text-xs text-ink/55">Deep reads</dt>
+                  <dd className="font-mono font-semibold tabular-nums">{row.deepReads}</dd>
                 </div>
-                <div>
-                  <dt className="text-ink/55">Presented</dt>
-                  <dd className="font-semibold">{row.presentations}</dd>
+                <div className="rounded-md bg-white/75 p-2">
+                  <dt className="text-xs text-ink/55">Presented</dt>
+                  <dd className="font-mono font-semibold tabular-nums">{row.presentations}</dd>
                 </div>
-                <div>
-                  <dt className="text-ink/55">Notes</dt>
-                  <dd className="font-semibold">{row.notes}</dd>
+                <div className="rounded-md bg-white/75 p-2">
+                  <dt className="text-xs text-ink/55">Notes</dt>
+                  <dd className="font-mono font-semibold tabular-nums">{row.notes}</dd>
                 </div>
-                <div>
-                  <dt className="text-ink/55">Streak</dt>
-                  <dd className="font-semibold">{row.currentWeeklyStreak}</dd>
+                <div className="rounded-md bg-white/75 p-2">
+                  <dt className="text-xs text-ink/55">Streak</dt>
+                  <dd className="font-mono font-semibold tabular-nums">{row.currentWeeklyStreak}</dd>
                 </div>
-                <div>
-                  <dt className="text-ink/55">Best streak</dt>
-                  <dd className="font-semibold">{row.longestWeeklyStreak}</dd>
+                <div className="rounded-md bg-white/75 p-2">
+                  <dt className="text-xs text-ink/55">Best streak</dt>
+                  <dd className="font-mono font-semibold tabular-nums">{row.longestWeeklyStreak}</dd>
                 </div>
               </dl>
               {badges.length ? (

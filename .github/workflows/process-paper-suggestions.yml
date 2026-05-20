@@ -1,21 +1,21 @@
-name: Process reading log issue
+name: Process paper suggestions
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 on:
-  issues:
-    types: [closed]
+  schedule:
+    - cron: "0 * * * *"
+  workflow_dispatch:
 
 permissions:
   contents: write
-  issues: write
+  issues: read
   pages: write
   id-token: write
 
 jobs:
   process:
-    if: contains(github.event.issue.labels.*.name, 'reading-log')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -23,19 +23,19 @@ jobs:
         with:
           node-version: 24
       - run: npm install
-      - name: Process reading log issue
-        run: node scripts/process-reading-issue.mjs
+      - name: Fetch closed paper suggestions
+        run: gh issue list --label paper-suggestion --state closed --limit 100 --json number,title,body > /tmp/paper-suggestions.json
         env:
-          ISSUE_NUMBER: ${{ github.event.issue.number }}
-          ISSUE_BODY: ${{ github.event.issue.body }}
-          ISSUE_TITLE: ${{ github.event.issue.title }}
+          GH_TOKEN: ${{ github.token }}
+      - name: Process paper suggestions
+        run: node scripts/process-paper-suggestions.mjs /tmp/paper-suggestions.json
       - run: npm run validate:data
-      - name: Commit updated reading logs
+      - name: Commit updated papers
         id: auto-commit-action
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "Add reading log from issue #${{ github.event.issue.number }}"
-          file_pattern: public/data/reading_logs.json
+          commit_message: "Add hourly paper suggestions"
+          file_pattern: public/data/papers.json
       - run: npm run build
         if: steps.auto-commit-action.outputs.changes_detected == 'true'
       - uses: actions/upload-pages-artifact@v5

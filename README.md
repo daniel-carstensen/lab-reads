@@ -47,9 +47,21 @@ Use stable lowercase IDs. Lab members enter this ID in the reading log Issue For
 
 ## Add Papers
 
-Edit `public/data/papers.json`. Each paper needs an `id`, `title`, `authors`, `year`, `week`, and `tags`.
+Papers can be added in two ways.
+
+For manual edits, edit `public/data/papers.json`. Each paper needs an `id`, `title`, `authors`, `year`, `week`, and `tags`.
 
 Weeks use ISO-style labels such as `2026-W21`. Paper IDs should be stable because reading logs reference them.
+
+For GitHub Issue suggestions, lab members can submit the **Suggest paper** form. Closed `paper-suggestion` issues are processed hourly by `.github/workflows/process-paper-suggestions.yml`. The processor automatically accepts every closed suggestion, generates a stable paper ID, appends the paper to `public/data/papers.json`, and commits the batch once per hour.
+
+The suggestion form asks for a `paper_id` directly. Use lowercase letters, numbers, and hyphens, such as:
+
+```text
+shepard-1987-generalization
+```
+
+Once a paper has reading logs, keep its ID stable so existing `reading_logs.json` entries continue to point to the right paper.
 
 ## Log Readings Through GitHub Issues
 
@@ -63,7 +75,7 @@ When a maintainer closes a `reading-log` issue, `.github/workflows/process-readi
 - appends a new entry to `public/data/reading_logs.json`
 - commits the updated JSON file back to the repository
 
-The normal Pages deploy workflow then rebuilds the site.
+The normal Pages deploy workflow then rebuilds the site. Reading logs deploy immediately after their processing commit; paper suggestions deploy after the hourly suggestion-processing commit.
 
 ## Deploy With GitHub Pages
 

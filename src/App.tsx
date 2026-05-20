@@ -6,6 +6,7 @@ import { Layout } from "./components/Layout";
 import { Leaderboard } from "./components/Leaderboard";
 import { ReadingHeatmap } from "./components/ReadingHeatmap";
 import { StatsPanel } from "./components/StatsPanel";
+import { SuggestedPapersPanel } from "./components/SuggestedPapersPanel";
 import { WeekView } from "./components/WeekView";
 import { loadAppData } from "./lib/data";
 import { getCurrentWeek, sortWeeksDesc } from "./lib/dates";
@@ -132,6 +133,7 @@ export default function App() {
           )}
         </section>
         <aside className="grid content-start gap-6">
+          <SuggestedPapersPanel papers={data.papers} logs={data.logs} />
           <Leaderboard
             members={data.members}
             papers={data.papers}

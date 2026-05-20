@@ -26,6 +26,7 @@ export type Paper = {
   abstract?: string;
   discussionLead?: string;
   required?: boolean;
+  sourceIssue?: number;
 };
 
 export type ReadingLog = {
