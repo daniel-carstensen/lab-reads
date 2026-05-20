@@ -1,3 +1,13 @@
 [
-
+  {
+    "id": "log-2026-05-20-daniel-mehta-2026-coarse-feedback-visual-2",
+    "paperId": "mehta-2026-coarse-feedback-visual",
+    "memberId": "daniel",
+    "status": "read",
+    "rating": 3,
+    "notes": "I thought this was a neat little paper and it clearly showed what it claimed. It might not be the most surprising result given the methodology and the evaluation criteria but I think it's still a nice proof-of-concept.",
+    "reaction": "🔥",
+    "date": "2026-05-20",
+    "sourceIssue": 2
+  }
 ]
