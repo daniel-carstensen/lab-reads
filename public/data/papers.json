@@ -1,3 +1,17 @@
 [
-
+  {
+    "id": "mehta-2026-coarse-feedback-visual",
+    "title": "An extremely coarse feedback signal is sufficient for learning human-aligned visual representations",
+    "authors": "Yash Mehta, Michael F. Bonner",
+    "year": 2026,
+    "week": "2026-W21",
+    "url": "https://arxiv.org/abs/2605.05556",
+    "tags": [
+      "vision",
+      "ai"
+    ],
+    "abstract": "Interesting little paper demonstrating that very coarse category feedback is enough to align vision models with humans",
+    "required": false,
+    "sourceIssue": 1
+  }
 ]
