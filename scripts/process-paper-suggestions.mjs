@@ -103,7 +103,7 @@ function normalizeUrl(value) {
 function buildPaper(issue, existingIds) {
   const fields = parseIssueForm(issue.body);
   const paperId = parsePaperId(fields.paper_id, issue.number);
-  const title = required(fields.paper_title, "Paper title", issue.number);
+  const title = required(fields.paper_title ?? fields.title, "Paper title", issue.number);
   const authors = required(fields.authors, "Authors", issue.number);
   const year = parseYear(fields.year, issue.number);
   const week = parseWeek(fields.suggested_week, issue.number);
