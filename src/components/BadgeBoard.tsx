@@ -43,7 +43,7 @@ export function BadgeBoard({
                     <div className="mt-2 flex flex-wrap gap-1.5">
                       {earners.map((member) => (
                         <span key={member.id} className="rounded-full bg-white px-2 py-1 text-xs text-ink/75">
-                          {member.avatarEmoji ?? "📚"} {member.displayName}
+                          {member.displayName}
                         </span>
                       ))}
                     </div>

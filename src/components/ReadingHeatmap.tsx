@@ -46,7 +46,6 @@ export function ReadingHeatmap({
             {members.map((member) => (
               <Fragment key={member.id}>
                 <div key={`${member.id}-label`} className="flex items-center gap-2 text-sm font-medium text-ink">
-                  <span aria-hidden="true">{member.avatarEmoji ?? "📚"}</span>
                   {member.displayName}
                 </div>
                 {weeks.map((week) => {

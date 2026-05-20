@@ -44,7 +44,7 @@ export function Leaderboard({
                   </span>
                   <div>
                     <h3 className="font-semibold text-ink">
-                      {row.member.avatarEmoji ?? "📚"} {row.member.displayName}
+                      {row.member.displayName}
                     </h3>
                     <p className="text-xs text-ink/55">{row.member.role ?? "Lab member"}</p>
                   </div>

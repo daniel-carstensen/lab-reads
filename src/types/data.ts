@@ -8,7 +8,6 @@ export type ReadingStatus =
 export type Member = {
   id: string;
   displayName: string;
-  avatarEmoji?: string;
   role?: string;
   active: boolean;
 };

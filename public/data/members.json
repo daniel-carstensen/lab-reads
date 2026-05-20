@@ -1,44 +1,32 @@
 [
   {
+    "id": "serra",
+    "displayName": "Serra",
+    "role": "PI",
+    "active": true
+  },
+  {
     "id": "daniel",
     "displayName": "Daniel",
-    "avatarEmoji": "🧠",
     "role": "Lab Manager",
     "active": true
   },
   {
-    "id": "maya",
-    "displayName": "Maya",
-    "avatarEmoji": "🧪",
+    "id": "futing",
+    "displayName": "Futing",
     "role": "Postdoc",
     "active": true
   },
   {
-    "id": "sam",
-    "displayName": "Sam",
-    "avatarEmoji": "📈",
+    "id": "jae",
+    "displayName": "Jae",
+    "role": "Postdoc",
+    "active": true
+  },
+  {
+    "id": "julian",
+    "displayName": "Julian",
     "role": "Graduate Student",
-    "active": true
-  },
-  {
-    "id": "li",
-    "displayName": "Li",
-    "avatarEmoji": "🧭",
-    "role": "Graduate Student",
-    "active": true
-  },
-  {
-    "id": "nora",
-    "displayName": "Nora",
-    "avatarEmoji": "✨",
-    "role": "Research Assistant",
-    "active": true
-  },
-  {
-    "id": "alex",
-    "displayName": "Alex",
-    "avatarEmoji": "🎧",
-    "role": "Visiting Scholar",
     "active": true
   }
 ]

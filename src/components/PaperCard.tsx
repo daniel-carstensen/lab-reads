@@ -129,7 +129,7 @@ export function PaperCard({
                   key={log.id}
                   className="rounded-full bg-coral/10 px-2.5 py-1 text-xs font-medium text-coral"
                 >
-                  {member?.avatarEmoji ?? "📚"} {member?.displayName ?? log.memberId}:{" "}
+                  {member?.displayName ?? log.memberId}:{" "}
                   {statusLabels[log.status]}
                 </span>
               );

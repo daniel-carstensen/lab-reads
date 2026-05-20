@@ -38,7 +38,6 @@ Edit `public/data/members.json`:
 {
   "id": "daniel",
   "displayName": "Daniel",
-  "avatarEmoji": "🧠",
   "role": "Lab Manager",
   "active": true
 }

@@ -1,9 +1,9 @@
 {
-  "labName": "Cognitive Neuroscience Paper Tracker",
+  "labName": "Favila Lab Paper Tracker",
   "siteSubtitle": "Weekly reading, notes, streaks, and paper quests",
   "timezone": "America/New_York",
-  "repoOwner": "your-github-org",
-  "repoName": "lab-paper-tracker",
+  "repoOwner": "daniel-carstensen",
+  "repoName": "lab-reads",
   "points": {
     "planned": 0,
     "skimmed": 1,
