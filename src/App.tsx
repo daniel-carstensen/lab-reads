@@ -9,7 +9,7 @@ import { StatsPanel } from "./components/StatsPanel";
 import { SuggestedPapersPanel } from "./components/SuggestedPapersPanel";
 import { WeekView } from "./components/WeekView";
 import { loadAppData } from "./lib/data";
-import { getCurrentWeek, sortWeeksDesc } from "./lib/dates";
+import { getCurrentWeek, getFutureWeekRange, getWeekFromDate, sortWeeksAsc, sortWeeksDesc } from "./lib/dates";
 import type { AppData, Paper } from "./types/data";
 
 const initialFilters: FiltersState = {
@@ -53,11 +53,15 @@ export default function App() {
 
   const derived = useMemo(() => {
     if (!data) return null;
-    const weeks = Array.from(new Set(data.papers.map((paper) => paper.week))).sort(sortWeeksDesc);
+    const paperWeeks = Array.from(new Set(data.papers.map((paper) => paper.week))).sort(sortWeeksDesc);
     const tags = Array.from(new Set(data.papers.flatMap((paper) => paper.tags))).sort((a, b) =>
       a.localeCompare(b)
     );
-    const currentWeek = getCurrentWeek(weeks, data.config.currentWeekMode);
+    const currentWeek = getCurrentWeek(paperWeeks, data.config.currentWeekMode);
+    const logWeeks = data.logs.map((log) => getWeekFromDate(log.date));
+    const heatmapWeeks = Array.from(
+      new Set([...paperWeeks, ...logWeeks, ...getFutureWeekRange(currentWeek, 4)])
+    ).sort(sortWeeksAsc);
     const filteredPapers = data.papers.filter((paper) => {
       const paperLogs = data.logs.filter((log) => log.paperId === paper.id);
       if (filters.week && paper.week !== filters.week) return false;
@@ -69,7 +73,8 @@ export default function App() {
       return matchesSearch(paper, filters.search);
     });
     return {
-      weeks,
+      paperWeeks,
+      heatmapWeeks,
       tags,
       currentWeek,
       filteredPapers,
@@ -106,12 +111,12 @@ export default function App() {
       <Filters
         filters={filters}
         onChange={setFilters}
-        weeks={derived.weeks}
+        weeks={derived.paperWeeks}
         members={data.members}
         tags={derived.tags}
       />
-      <div className="grid gap-6 xl:grid-cols-[minmax(0,1.35fr)_minmax(22rem,0.65fr)]">
-        <section id="papers" className="grid gap-6" aria-label="Weekly papers">
+      <div className="grid items-start gap-6 xl:grid-cols-[minmax(0,1.35fr)_minmax(22rem,0.65fr)]">
+        <section id="papers" className="grid content-start gap-6" aria-label="Weekly papers">
           {derived.filteredPapers.length ? (
             Object.entries(derived.groupedPapers)
               .sort(([weekA], [weekB]) => sortWeeksDesc(weekA, weekB))
@@ -139,21 +144,21 @@ export default function App() {
             papers={data.papers}
             logs={data.logs}
             config={data.config}
-            allWeeks={derived.weeks}
+            allWeeks={derived.heatmapWeeks}
           />
         </aside>
       </div>
       <ReadingHeatmap
         members={data.members}
         logs={data.logs}
-        weeks={derived.weeks.slice().reverse()}
+        weeks={derived.heatmapWeeks}
         config={data.config}
       />
       <BadgeBoard
         members={data.members}
         papers={data.papers}
         logs={data.logs}
-        allWeeks={derived.weeks}
+        allWeeks={derived.heatmapWeeks}
       />
     </Layout>
   );

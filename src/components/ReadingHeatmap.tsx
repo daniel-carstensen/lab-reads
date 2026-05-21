@@ -14,8 +14,9 @@ export function ReadingHeatmap({
   weeks: string[];
   config: SiteConfig;
 }) {
-  const cellWidth = 3.1;
-  const heatmapMinWidth = weeks.length > 4 ? `${7 + weeks.length * cellWidth}rem` : "100%";
+  const labelWidth = 7;
+  const cellWidth = 3.25;
+  const heatmapWidth = `${labelWidth + weeks.length * cellWidth}rem`;
   const values = members.flatMap((member) =>
     weeks.map((week) =>
       logs
@@ -34,10 +35,10 @@ export function ReadingHeatmap({
         <p className="text-sm text-ink/60">Rows are members, columns are weeks, color is points logged.</p>
       </div>
       <div className="-mx-2 max-h-[24rem] overflow-auto px-2 pb-1">
-        <div style={{ minWidth: heatmapMinWidth }}>
+        <div style={{ width: heatmapWidth }}>
           <div
             className="grid gap-1.5 sm:gap-2"
-            style={{ gridTemplateColumns: `minmax(6rem, 0.85fr) repeat(${weeks.length}, minmax(2.8rem, 1fr))` }}
+            style={{ gridTemplateColumns: `${labelWidth}rem repeat(${weeks.length}, ${cellWidth}rem)` }}
           >
             <div className="sticky left-0 top-0 z-20 bg-white" />
             {weeks.map((week) => (

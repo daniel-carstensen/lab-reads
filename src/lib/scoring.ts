@@ -52,7 +52,14 @@ export function getWeeklyStreaks(logs: ReadingLog[], allWeeks: string[]) {
     }
   }
 
+  let lastLoggedWeekIndex = -1;
   for (let index = orderedWeeks.length - 1; index >= 0; index -= 1) {
+    if (weeksWithLogs.has(orderedWeeks[index])) {
+      lastLoggedWeekIndex = index;
+      break;
+    }
+  }
+  for (let index = lastLoggedWeekIndex; index >= 0; index -= 1) {
     if (!weeksWithLogs.has(orderedWeeks[index])) break;
     current += 1;
   }
