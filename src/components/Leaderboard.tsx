@@ -29,7 +29,7 @@ export function Leaderboard({
         </div>
         <Trophy className="h-6 w-6 text-gold" aria-hidden="true" />
       </div>
-      <div className="grid gap-3">
+      <div className="grid max-h-[31rem] gap-3 overflow-y-auto pr-1">
         {rows.map((row, index) => {
           const badges = getEarnedBadges(row.member, papers, logs, allWeeks);
           return (

@@ -25,7 +25,7 @@ export function SuggestedPapersPanel({ papers, logs }: { papers: Paper[]; logs: 
       </div>
 
       {suggestedPapers.length ? (
-        <div className="grid gap-3">
+        <div className="grid max-h-[24rem] gap-3 overflow-y-auto pr-1">
           {suggestedPapers.map((paper) => {
             const logCount = logs.filter((log) => log.paperId === paper.id).length;
             return (

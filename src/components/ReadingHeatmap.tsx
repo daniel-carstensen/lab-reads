@@ -15,7 +15,7 @@ export function ReadingHeatmap({
   config: SiteConfig;
 }) {
   const labelWidth = 7;
-  const cellWidth = 3.25;
+  const cellWidth = 5.25;
   const heatmapWidth = `${labelWidth + weeks.length * cellWidth}rem`;
   const values = members.flatMap((member) =>
     weeks.map((week) =>
@@ -42,9 +42,8 @@ export function ReadingHeatmap({
           >
             <div className="sticky left-0 top-0 z-20 bg-white" />
             {weeks.map((week) => (
-              <div key={week} className="sticky top-0 z-10 truncate bg-white py-1 text-center text-[0.68rem] font-semibold text-ink/60 sm:text-xs">
-                <span className="hidden sm:inline">{week}</span>
-                <span className="sm:hidden">{week.replace(/^20/, "'").replace("-W", " W")}</span>
+              <div key={week} className="sticky top-0 z-10 bg-white py-1 text-center text-xs font-semibold text-ink/60">
+                {week}
               </div>
             ))}
             {members.map((member) => (
