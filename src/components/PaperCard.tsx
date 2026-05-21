@@ -154,7 +154,7 @@ export function PaperCard({
 
       {expanded ? (
         <div id={`${paper.id}-details`} className="grid gap-5 border-t border-ink/10 p-4 sm:p-5">
-          <div className="grid gap-4 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+          <div className="grid gap-4 xl:grid-cols-[minmax(14rem,0.75fr)_minmax(0,1.25fr)]">
             <section aria-label="Paper identifiers" className="min-w-0">
               <h4 className="font-semibold text-ink">Copy-friendly IDs</h4>
               <dl className="mt-3 grid gap-3 text-sm sm:grid-cols-2 lg:grid-cols-1">
@@ -195,51 +195,56 @@ export function PaperCard({
               </div>
 
               {paperLogs.length ? (
-                <div className="mt-3 grid grid-cols-[repeat(auto-fit,minmax(min(100%,14rem),1fr))] gap-3">
-                  {paperLogs.map((log) => {
-                    const member = memberById.get(log.memberId);
-                    return (
-                      <article key={`${log.id}-detail`} className="min-w-0 rounded-md border border-ink/10 bg-paper/70 p-3">
-                        <div className="flex items-start justify-between gap-2">
-                          <div className="min-w-0">
-                            <h5 className="truncate text-sm font-semibold text-ink">
-                              {member?.displayName ?? log.memberId}
-                            </h5>
-                            <p className="text-xs text-ink/55">{log.date}</p>
+                <div className="mt-3 max-h-[28rem] overflow-y-auto pr-1 xl:max-h-[24rem]">
+                  <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,16rem),1fr))] gap-3 xl:grid-cols-[repeat(auto-fill,minmax(17rem,1fr))]">
+                    {paperLogs.map((log) => {
+                      const member = memberById.get(log.memberId);
+                      return (
+                        <article
+                          key={`${log.id}-detail`}
+                          className="min-w-0 rounded-md border border-ink/10 bg-paper/70 p-3"
+                        >
+                          <div className="flex items-start justify-between gap-2">
+                            <div className="min-w-0">
+                              <h5 className="truncate text-sm font-semibold text-ink">
+                                {member?.displayName ?? log.memberId}
+                              </h5>
+                              <p className="text-xs text-ink/55">{log.date}</p>
+                            </div>
+                            <span className="shrink-0 rounded-full bg-coral/10 px-2 py-1 text-xs font-semibold text-coral">
+                              {statusLabels[log.status]}
+                            </span>
                           </div>
-                          <span className="shrink-0 rounded-full bg-coral/10 px-2 py-1 text-xs font-semibold text-coral">
-                            {statusLabels[log.status]}
-                          </span>
-                        </div>
-                        <dl className="mt-3 grid gap-2 text-sm">
-                          {typeof log.rating === "number" ? (
-                            <div>
-                              <dt className="text-xs font-semibold uppercase tracking-wide text-ink/45">
-                                Rating
-                              </dt>
-                              <dd className="font-medium text-ink">{log.rating}/5</dd>
-                            </div>
-                          ) : null}
-                          {log.notes?.trim() ? (
-                            <div>
-                              <dt className="text-xs font-semibold uppercase tracking-wide text-ink/45">
-                                Note
-                              </dt>
-                              <dd className="text-ink/80">{log.notes}</dd>
-                            </div>
-                          ) : null}
-                          {log.discussionQuestion?.trim() ? (
-                            <div>
-                              <dt className="text-xs font-semibold uppercase tracking-wide text-ink/45">
-                                Question
-                              </dt>
-                              <dd className="text-ink/80">{log.discussionQuestion}</dd>
-                            </div>
-                          ) : null}
-                        </dl>
-                      </article>
-                    );
-                  })}
+                          <dl className="mt-3 grid gap-2 text-sm">
+                            {typeof log.rating === "number" ? (
+                              <div>
+                                <dt className="text-xs font-semibold uppercase tracking-wide text-ink/45">
+                                  Rating
+                                </dt>
+                                <dd className="font-medium text-ink">{log.rating}/5</dd>
+                              </div>
+                            ) : null}
+                            {log.notes?.trim() ? (
+                              <div>
+                                <dt className="text-xs font-semibold uppercase tracking-wide text-ink/45">
+                                  Note
+                                </dt>
+                                <dd className="text-ink/80">{log.notes}</dd>
+                              </div>
+                            ) : null}
+                            {log.discussionQuestion?.trim() ? (
+                              <div>
+                                <dt className="text-xs font-semibold uppercase tracking-wide text-ink/45">
+                                  Question
+                                </dt>
+                                <dd className="text-ink/80">{log.discussionQuestion}</dd>
+                              </div>
+                            ) : null}
+                          </dl>
+                        </article>
+                      );
+                    })}
+                  </div>
                 </div>
               ) : (
                 <p className="mt-3 rounded-md border border-dashed border-ink/15 bg-paper/70 p-3 text-sm text-ink/55">

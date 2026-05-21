@@ -14,8 +14,8 @@ export function ReadingHeatmap({
   weeks: string[];
   config: SiteConfig;
 }) {
-  const cellWidth = 3.35;
-  const heatmapMinWidth = weeks.length > 4 ? `${6 + weeks.length * cellWidth}rem` : "100%";
+  const cellWidth = 3.1;
+  const heatmapMinWidth = weeks.length > 4 ? `${7 + weeks.length * cellWidth}rem` : "100%";
   const values = members.flatMap((member) =>
     weeks.map((week) =>
       logs
@@ -33,22 +33,22 @@ export function ReadingHeatmap({
         </h2>
         <p className="text-sm text-ink/60">Rows are members, columns are weeks, color is points logged.</p>
       </div>
-      <div className="-mx-2 overflow-x-auto px-2">
+      <div className="-mx-2 max-h-[24rem] overflow-auto px-2 pb-1">
         <div style={{ minWidth: heatmapMinWidth }}>
           <div
             className="grid gap-1.5 sm:gap-2"
-            style={{ gridTemplateColumns: `minmax(5.5rem, 0.85fr) repeat(${weeks.length}, minmax(3rem, 1fr))` }}
+            style={{ gridTemplateColumns: `minmax(6rem, 0.85fr) repeat(${weeks.length}, minmax(2.8rem, 1fr))` }}
           >
-            <div />
+            <div className="sticky left-0 top-0 z-20 bg-white" />
             {weeks.map((week) => (
-              <div key={week} className="truncate text-center text-[0.68rem] font-semibold text-ink/60 sm:text-xs">
+              <div key={week} className="sticky top-0 z-10 truncate bg-white py-1 text-center text-[0.68rem] font-semibold text-ink/60 sm:text-xs">
                 <span className="hidden sm:inline">{week}</span>
                 <span className="sm:hidden">{week.replace(/^20/, "'").replace("-W", " W")}</span>
               </div>
             ))}
             {members.map((member) => (
               <Fragment key={member.id}>
-                <div key={`${member.id}-label`} className="flex items-center gap-2 truncate text-xs font-medium text-ink sm:text-sm">
+                <div key={`${member.id}-label`} className="sticky left-0 z-10 flex h-8 items-center gap-2 truncate bg-white pr-2 text-xs font-medium text-ink sm:h-9 sm:text-sm">
                   {member.displayName}
                 </div>
                 {weeks.map((week) => {
