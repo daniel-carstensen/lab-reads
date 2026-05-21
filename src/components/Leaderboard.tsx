@@ -19,7 +19,7 @@ export function Leaderboard({
   const rows = buildLeaderboard(members, papers, logs, config);
 
   return (
-    <section className="rounded-lg border border-ink/10 bg-white p-5 shadow-soft" aria-labelledby="leaderboard-heading">
+    <section className="min-w-0 rounded-lg border border-ink/10 bg-white p-5 shadow-soft" aria-labelledby="leaderboard-heading">
       <div className="mb-4 flex items-start justify-between gap-3">
         <div>
           <h2 id="leaderboard-heading" className="text-xl font-bold text-ink">
@@ -33,7 +33,7 @@ export function Leaderboard({
         {rows.map((row, index) => {
           const badges = getEarnedBadges(row.member, papers, logs, allWeeks);
           return (
-            <article key={row.member.id} className="rounded-lg border border-ink/10 bg-paper/60 p-4">
+            <article key={row.member.id} className="min-w-0 rounded-lg border border-ink/10 bg-paper/60 p-4">
               <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3">
                 <span className="grid h-9 w-9 place-items-center rounded-full bg-lagoon/10 text-sm font-bold text-lagoon">
                   {index + 1}

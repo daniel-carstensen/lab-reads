@@ -15,7 +15,7 @@ export function BadgeBoard({
   const allBadges = getAllBadges();
 
   return (
-    <section className="rounded-lg border border-ink/10 bg-white p-5 shadow-soft" aria-labelledby="badges-heading">
+    <section className="min-w-0 rounded-lg border border-ink/10 bg-white p-5 shadow-soft" aria-labelledby="badges-heading">
       <div className="mb-4">
         <h2 id="badges-heading" className="text-xl font-bold text-ink">
           Badge Board
@@ -28,12 +28,12 @@ export function BadgeBoard({
             getEarnedBadges(member, papers, logs, allWeeks).some((earned) => earned.id === badge.id)
           );
           return (
-            <article key={badge.id} className="rounded-lg border border-ink/10 bg-paper/60 p-4">
+            <article key={badge.id} className="min-w-0 rounded-lg border border-ink/10 bg-paper/60 p-4">
               <div className="flex items-start gap-3">
                 <span className="text-2xl" aria-hidden="true">
                   {badge.emoji}
                 </span>
-                <div>
+                <div className="min-w-0">
                   <h3 className="font-semibold text-ink">{badge.name}</h3>
                   <p className="mt-1 text-sm text-ink/60">{badge.description}</p>
                   <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-moss">

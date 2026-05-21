@@ -15,13 +15,13 @@ export function Layout({
   const repoUrl = createRepoUrl(config.repoOwner, config.repoName);
 
   return (
-    <div className="min-h-screen bg-paper text-ink">
+    <div className="min-h-screen overflow-x-hidden bg-paper text-ink xl:overflow-x-visible">
       <header className="border-b border-ink/10 bg-white">
-        <div className="mx-auto flex w-full max-w-7xl flex-col gap-5 px-4 py-6 sm:px-6 lg:px-8">
-          <nav className="flex flex-wrap items-center justify-between gap-3" aria-label="Primary">
-            <a href="#papers" className="inline-flex items-center gap-2 font-semibold text-ink">
-              <BookOpen className="h-5 w-5 text-lagoon" aria-hidden="true" />
-              <span>{config.labName}</span>
+        <div className="mx-auto flex w-full max-w-7xl min-w-0 flex-col gap-5 px-3 py-6 sm:px-6 lg:px-8">
+          <nav className="flex min-w-0 flex-wrap items-center justify-between gap-3" aria-label="Primary">
+            <a href="#papers" className="inline-flex min-w-0 max-w-full items-center gap-2 font-semibold text-ink">
+              <BookOpen className="h-5 w-5 shrink-0 text-lagoon" aria-hidden="true" />
+              <span className="truncate">{config.labName}</span>
             </a>
             <div className="flex flex-wrap items-center gap-2">
               <a
@@ -61,12 +61,12 @@ export function Layout({
               </a>
             </div>
           </nav>
-          <div className="grid gap-4 md:grid-cols-[1fr_auto] md:items-end">
-            <div>
+          <div className="grid min-w-0 gap-4 md:grid-cols-[1fr_auto] md:items-end">
+            <div className="min-w-0">
               <p className="text-sm font-semibold uppercase tracking-wide text-moss">
                 Current week: {currentWeek}
               </p>
-              <h1 className="mt-2 max-w-3xl text-3xl font-bold leading-tight text-ink sm:text-4xl">
+              <h1 className="mt-2 max-w-3xl break-words text-3xl font-bold leading-tight text-ink sm:text-4xl">
                 {config.labName}
               </h1>
               {config.siteSubtitle ? (
@@ -80,7 +80,7 @@ export function Layout({
           </div>
         </div>
       </header>
-      <main className="mx-auto grid w-full max-w-7xl gap-6 px-4 py-6 sm:px-6 lg:px-8">
+      <main className="mx-auto grid w-full max-w-7xl min-w-0 gap-6 px-3 py-6 sm:px-6 lg:px-8">
         {children}
       </main>
     </div>

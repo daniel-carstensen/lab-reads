@@ -20,18 +20,25 @@ type SelectOption = {
   value: string;
 };
 
+type FilterSelectId = "week" | "member" | "tag" | "status" | "type";
+
 function FilterSelect({
+  selectId,
   label,
   value,
   options,
+  open,
+  onOpenChange,
   onChange
 }: {
+  selectId: FilterSelectId;
   label: string;
   value: string;
   options: SelectOption[];
+  open: boolean;
+  onOpenChange: (selectId: FilterSelectId | null) => void;
   onChange: (value: string) => void;
 }) {
-  const [open, setOpen] = useState(false);
   const id = useId();
   const selected = options.find((option) => option.value === value) ?? options[0];
 
@@ -41,7 +48,7 @@ function FilterSelect({
       onBlur={(event) => {
         const nextFocus = event.relatedTarget;
         if (!(nextFocus instanceof Node) || !event.currentTarget.contains(nextFocus)) {
-          setOpen(false);
+          onOpenChange(null);
         }
       }}
     >
@@ -54,9 +61,9 @@ function FilterSelect({
         className={`${controlClass} flex min-h-10 w-full items-center justify-between gap-2 text-left`}
         id={`${id}-button`}
         type="button"
-        onClick={() => setOpen((current) => !current)}
+        onClick={() => onOpenChange(open ? null : selectId)}
         onKeyDown={(event) => {
-          if (event.key === "Escape") setOpen(false);
+          if (event.key === "Escape") onOpenChange(null);
         }}
       >
         <span className="truncate">{selected.label}</span>
@@ -83,7 +90,7 @@ function FilterSelect({
               type="button"
               onClick={() => {
                 onChange(option.value);
-                setOpen(false);
+                onOpenChange(null);
               }}
             >
               {option.label}
@@ -108,6 +115,7 @@ export function Filters({
   members: Member[];
   tags: string[];
 }) {
+  const [openSelect, setOpenSelect] = useState<FilterSelectId | null>(null);
   const update = (key: keyof FiltersState, value: string) =>
     onChange({ ...filters, [key]: value });
 
@@ -124,36 +132,49 @@ export function Filters({
       </div>
       <div className="grid gap-3 md:grid-cols-3 xl:grid-cols-6">
         <FilterSelect
+          selectId="week"
           label="Week"
           value={filters.week}
           options={[{ label: "All weeks", value: "" }, ...weeks.map((week) => ({ label: week, value: week }))]}
+          open={openSelect === "week"}
+          onOpenChange={setOpenSelect}
           onChange={(value) => update("week", value)}
         />
         <FilterSelect
+          selectId="member"
           label="Member"
           value={filters.memberId}
           options={[
             { label: "Everyone", value: "" },
             ...members.map((member) => ({ label: member.displayName, value: member.id }))
           ]}
+          open={openSelect === "member"}
+          onOpenChange={setOpenSelect}
           onChange={(value) => update("memberId", value)}
         />
         <FilterSelect
+          selectId="tag"
           label="Tag"
           value={filters.tag}
           options={[{ label: "All tags", value: "" }, ...tags.map((tag) => ({ label: tag, value: tag }))]}
+          open={openSelect === "tag"}
+          onOpenChange={setOpenSelect}
           onChange={(value) => update("tag", value)}
         />
         <FilterSelect
+          selectId="status"
           label="Status"
           value={filters.status}
           options={[
             { label: "Any status", value: "" },
             ...statuses.map((status) => ({ label: status.replace("_", " "), value: status }))
           ]}
+          open={openSelect === "status"}
+          onOpenChange={setOpenSelect}
           onChange={(value) => update("status", value)}
         />
         <FilterSelect
+          selectId="type"
           label="Type"
           value={filters.required}
           options={[
@@ -161,6 +182,8 @@ export function Filters({
             { label: "Required", value: "required" },
             { label: "Optional", value: "optional" }
           ]}
+          open={openSelect === "type"}
+          onOpenChange={setOpenSelect}
           onChange={(value) => update("required", value)}
         />
         <label className="grid gap-1 text-sm font-medium text-ink/80">

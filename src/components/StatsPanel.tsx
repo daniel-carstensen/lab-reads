@@ -65,7 +65,7 @@ export function StatsPanel({
   ];
 
   return (
-    <section className="rounded-lg border border-ink/10 bg-white p-5 shadow-soft" aria-labelledby="stats-heading">
+    <section className="min-w-0 rounded-lg border border-ink/10 bg-white p-5 shadow-soft" aria-labelledby="stats-heading">
       <div className="mb-4 flex items-center gap-2">
         <BarChart3 className="h-5 w-5 text-lagoon" aria-hidden="true" />
         <h2 id="stats-heading" className="text-xl font-bold text-ink">
@@ -74,9 +74,9 @@ export function StatsPanel({
       </div>
       <dl className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
         {stats.map((stat) => (
-          <div key={stat.label} className="rounded-lg border border-ink/10 bg-paper/60 p-4">
+          <div key={stat.label} className="min-w-0 rounded-lg border border-ink/10 bg-paper/60 p-4">
             <dt className="text-xs font-semibold uppercase tracking-wide text-ink/55">{stat.label}</dt>
-            <dd className="mt-2 line-clamp-3 text-lg font-bold text-ink">{stat.value}</dd>
+            <dd className="mt-2 line-clamp-3 break-words text-lg font-bold text-ink">{stat.value}</dd>
           </div>
         ))}
       </dl>

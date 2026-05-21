@@ -17,7 +17,7 @@ export function WeekView({
   const theme = papers.find((paper) => paper.theme)?.theme;
 
   return (
-    <section className="grid content-start gap-4" aria-labelledby={`${week}-heading`}>
+    <section className="grid min-w-0 content-start gap-4" aria-labelledby={`${week}-heading`}>
       <div className="flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <h2 id={`${week}-heading`} className="text-2xl font-bold text-ink">
@@ -29,7 +29,7 @@ export function WeekView({
           {papers.length} {papers.length === 1 ? "paper" : "papers"}
         </p>
       </div>
-      <div className="grid content-start gap-4">
+      <div className="grid min-w-0 content-start gap-4">
         {papers.map((paper) => (
           <PaperCard
             key={paper.id}

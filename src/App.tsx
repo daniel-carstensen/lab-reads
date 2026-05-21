@@ -115,8 +115,8 @@ export default function App() {
         members={data.members}
         tags={derived.tags}
       />
-      <div className="grid items-start gap-6 xl:grid-cols-[minmax(0,1.35fr)_minmax(22rem,0.65fr)]">
-        <section id="papers" className="grid content-start gap-6" aria-label="Weekly papers">
+      <div className="grid min-w-0 items-start gap-6 xl:grid-cols-[minmax(0,1.35fr)_minmax(22rem,0.65fr)]">
+        <section id="papers" className="grid min-w-0 content-start gap-6" aria-label="Weekly papers">
           {derived.filteredPapers.length ? (
             Object.entries(derived.groupedPapers)
               .sort(([weekA], [weekB]) => sortWeeksDesc(weekA, weekB))
@@ -137,7 +137,7 @@ export default function App() {
             />
           )}
         </section>
-        <aside className="grid content-start gap-6">
+        <aside className="grid min-w-0 content-start gap-6">
           <SuggestedPapersPanel papers={data.papers} logs={data.logs} />
           <Leaderboard
             members={data.members}

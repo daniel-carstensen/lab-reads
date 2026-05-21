@@ -11,7 +11,7 @@ export function SuggestedPapersPanel({ papers, logs }: { papers: Paper[]; logs: 
 
   return (
     <section
-      className="rounded-lg border border-ink/10 bg-white p-5 shadow-soft"
+      className="min-w-0 rounded-lg border border-ink/10 bg-white p-5 shadow-soft"
       aria-labelledby="suggested-papers-heading"
     >
       <div className="mb-4 flex items-start justify-between gap-3">
@@ -29,7 +29,7 @@ export function SuggestedPapersPanel({ papers, logs }: { papers: Paper[]; logs: 
           {suggestedPapers.map((paper) => {
             const logCount = logs.filter((log) => log.paperId === paper.id).length;
             return (
-              <article key={paper.id} className="rounded-lg border border-ink/10 bg-paper/60 p-4">
+              <article key={paper.id} className="min-w-0 rounded-lg border border-ink/10 bg-paper/60 p-4">
                 <div className="flex flex-wrap items-center gap-2">
                   <span className="rounded-full bg-lagoon/10 px-2.5 py-1 text-xs font-semibold text-lagoon">
                     {paper.week}
@@ -38,7 +38,7 @@ export function SuggestedPapersPanel({ papers, logs }: { papers: Paper[]; logs: 
                     {logCount} {logCount === 1 ? "log" : "logs"}
                   </span>
                 </div>
-                <h3 className="mt-3 text-sm font-semibold leading-snug text-ink">{paper.title}</h3>
+                <h3 className="mt-3 break-words text-sm font-semibold leading-snug text-ink">{paper.title}</h3>
                 <p className="mt-1 text-xs text-ink/60">
                   {paper.authors}, {paper.year}
                 </p>

@@ -42,10 +42,10 @@ export function PaperCard({
   }, {});
 
   return (
-    <article className="rounded-lg border border-ink/10 bg-white shadow-soft" id={paper.id}>
+    <article className="min-w-0 rounded-lg border border-ink/10 bg-white shadow-soft" id={paper.id}>
       <div className="grid gap-4 p-5">
         <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
-          <div>
+          <div className="min-w-0">
             <div className="mb-2 flex flex-wrap items-center gap-2">
               <span className="rounded-full bg-lagoon/10 px-2.5 py-1 text-xs font-semibold text-lagoon">
                 {paper.required ? "Required" : "Optional"}
@@ -56,7 +56,7 @@ export function PaperCard({
                 </span>
               ) : null}
             </div>
-            <h3 className="text-xl font-bold leading-snug text-ink">{paper.title}</h3>
+            <h3 className="break-words text-xl font-bold leading-snug text-ink">{paper.title}</h3>
             <p className="mt-1 text-sm text-ink/65">
               {paper.authors}, {paper.year}
             </p>

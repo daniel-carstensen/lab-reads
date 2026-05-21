@@ -27,14 +27,14 @@ export function ReadingHeatmap({
   const max = Math.max(1, ...values);
 
   return (
-    <section className="rounded-lg border border-ink/10 bg-white p-4 shadow-soft sm:p-5" aria-labelledby="heatmap-heading">
+    <section className="min-w-0 rounded-lg border border-ink/10 bg-white p-4 shadow-soft sm:p-5" aria-labelledby="heatmap-heading">
       <div className="mb-4">
         <h2 id="heatmap-heading" className="text-xl font-bold text-ink">
           Reading Heatmap
         </h2>
         <p className="text-sm text-ink/60">Rows are members, columns are weeks, color is points logged.</p>
       </div>
-      <div className="-mx-2 max-h-[24rem] overflow-auto px-2 pb-1">
+      <div className="-mx-2 max-h-[24rem] max-w-full overflow-auto px-2 pb-1">
         <div style={{ width: heatmapWidth }}>
           <div
             className="grid gap-1.5 sm:gap-2"
