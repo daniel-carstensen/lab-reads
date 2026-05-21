@@ -52,6 +52,27 @@ body:
     validations:
       required: true
 
+  - type: dropdown
+    id: required_status
+    attributes:
+      label: Required or optional
+      description: Choose whether this paper should be part of the required weekly reading.
+      options:
+        - optional
+        - required
+      default: 0
+    validations:
+      required: true
+
+  - type: input
+    id: discussion_lead
+    attributes:
+      label: Discussion lead
+      description: Optional person who will lead the discussion. Leave blank for TBD.
+      placeholder: "Daniel"
+    validations:
+      required: false
+
   - type: input
     id: tags
     attributes:

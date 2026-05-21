@@ -63,6 +63,8 @@ shepard-1987-generalization
 
 Once a paper has reading logs, keep its ID stable so existing `reading_logs.json` entries continue to point to the right paper.
 
+The suggestion form also asks whether the paper is `required` or `optional`, plus an optional discussion lead. If the discussion lead is blank, the site shows `TBD`.
+
 ## Log Readings Through GitHub Issues
 
 On the site, each paper card shows its `paperId` and available member IDs. A lab member clicks **Log reading**, fills out the GitHub Issue Form, and submits it.

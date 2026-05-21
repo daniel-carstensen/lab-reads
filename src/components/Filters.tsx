@@ -1,4 +1,5 @@
-import { Filter, Search } from "lucide-react";
+import { ChevronDown, Filter, Search } from "lucide-react";
+import { useId, useState } from "react";
 import type { Member, ReadingStatus } from "../types/data";
 
 export type FiltersState = {
@@ -13,6 +14,86 @@ export type FiltersState = {
 const statuses: ReadingStatus[] = ["planned", "skimmed", "read", "deep_read", "presented"];
 const controlClass =
   "filter-control rounded-md border border-ink/15 bg-white px-3 py-2 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-lagoon";
+
+type SelectOption = {
+  label: string;
+  value: string;
+};
+
+function FilterSelect({
+  label,
+  value,
+  options,
+  onChange
+}: {
+  label: string;
+  value: string;
+  options: SelectOption[];
+  onChange: (value: string) => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const id = useId();
+  const selected = options.find((option) => option.value === value) ?? options[0];
+
+  return (
+    <div
+      className="relative grid gap-1 text-sm font-medium text-ink/80"
+      onBlur={(event) => {
+        const nextFocus = event.relatedTarget;
+        if (!(nextFocus instanceof Node) || !event.currentTarget.contains(nextFocus)) {
+          setOpen(false);
+        }
+      }}
+    >
+      <span id={`${id}-label`}>{label}</span>
+      <button
+        aria-controls={`${id}-menu`}
+        aria-expanded={open}
+        aria-haspopup="listbox"
+        aria-labelledby={`${id}-label ${id}-button`}
+        className={`${controlClass} flex min-h-10 w-full items-center justify-between gap-2 text-left`}
+        id={`${id}-button`}
+        type="button"
+        onClick={() => setOpen((current) => !current)}
+        onKeyDown={(event) => {
+          if (event.key === "Escape") setOpen(false);
+        }}
+      >
+        <span className="truncate">{selected.label}</span>
+        <ChevronDown
+          className={`h-4 w-4 shrink-0 text-ink/50 transition ${open ? "rotate-180" : ""}`}
+          aria-hidden="true"
+        />
+      </button>
+      {open ? (
+        <div
+          className="absolute left-0 right-0 top-full z-30 mt-1 max-h-64 overflow-y-auto rounded-md border border-ink/15 bg-white p-1 font-sans text-sm text-ink shadow-soft"
+          id={`${id}-menu`}
+          role="listbox"
+          aria-labelledby={`${id}-label`}
+        >
+          {options.map((option) => (
+            <button
+              key={option.value}
+              className={`w-full rounded px-2.5 py-2 text-left font-sans transition hover:bg-lagoon/10 focus:bg-lagoon/10 focus:outline-none ${
+                option.value === value ? "bg-lagoon/10 font-semibold text-lagoon" : "text-ink"
+              }`}
+              role="option"
+              aria-selected={option.value === value}
+              type="button"
+              onClick={() => {
+                onChange(option.value);
+                setOpen(false);
+              }}
+            >
+              {option.label}
+            </button>
+          ))}
+        </div>
+      ) : null}
+    </div>
+  );
+}
 
 export function Filters({
   filters,
@@ -42,78 +123,46 @@ export function Filters({
         </h2>
       </div>
       <div className="grid gap-3 md:grid-cols-3 xl:grid-cols-6">
-        <label className="grid gap-1 text-sm font-medium text-ink/80">
-          Week
-          <select
-            className={controlClass}
-            value={filters.week}
-            onChange={(event) => update("week", event.target.value)}
-          >
-            <option value="">All weeks</option>
-            {weeks.map((week) => (
-              <option key={week} value={week}>
-                {week}
-              </option>
-            ))}
-          </select>
-        </label>
-        <label className="grid gap-1 text-sm font-medium text-ink/80">
-          Member
-          <select
-            className={controlClass}
-            value={filters.memberId}
-            onChange={(event) => update("memberId", event.target.value)}
-          >
-            <option value="">Everyone</option>
-            {members.map((member) => (
-              <option key={member.id} value={member.id}>
-                {member.displayName}
-              </option>
-            ))}
-          </select>
-        </label>
-        <label className="grid gap-1 text-sm font-medium text-ink/80">
-          Tag
-          <select
-            className={controlClass}
-            value={filters.tag}
-            onChange={(event) => update("tag", event.target.value)}
-          >
-            <option value="">All tags</option>
-            {tags.map((tag) => (
-              <option key={tag} value={tag}>
-                {tag}
-              </option>
-            ))}
-          </select>
-        </label>
-        <label className="grid gap-1 text-sm font-medium text-ink/80">
-          Status
-          <select
-            className={controlClass}
-            value={filters.status}
-            onChange={(event) => update("status", event.target.value)}
-          >
-            <option value="">Any status</option>
-            {statuses.map((status) => (
-              <option key={status} value={status}>
-                {status.replace("_", " ")}
-              </option>
-            ))}
-          </select>
-        </label>
-        <label className="grid gap-1 text-sm font-medium text-ink/80">
-          Type
-          <select
-            className={controlClass}
-            value={filters.required}
-            onChange={(event) => update("required", event.target.value)}
-          >
-            <option value="">Required and optional</option>
-            <option value="required">Required</option>
-            <option value="optional">Optional</option>
-          </select>
-        </label>
+        <FilterSelect
+          label="Week"
+          value={filters.week}
+          options={[{ label: "All weeks", value: "" }, ...weeks.map((week) => ({ label: week, value: week }))]}
+          onChange={(value) => update("week", value)}
+        />
+        <FilterSelect
+          label="Member"
+          value={filters.memberId}
+          options={[
+            { label: "Everyone", value: "" },
+            ...members.map((member) => ({ label: member.displayName, value: member.id }))
+          ]}
+          onChange={(value) => update("memberId", value)}
+        />
+        <FilterSelect
+          label="Tag"
+          value={filters.tag}
+          options={[{ label: "All tags", value: "" }, ...tags.map((tag) => ({ label: tag, value: tag }))]}
+          onChange={(value) => update("tag", value)}
+        />
+        <FilterSelect
+          label="Status"
+          value={filters.status}
+          options={[
+            { label: "Any status", value: "" },
+            ...statuses.map((status) => ({ label: status.replace("_", " "), value: status }))
+          ]}
+          onChange={(value) => update("status", value)}
+        />
+        <FilterSelect
+          label="Type"
+          value={filters.required}
+          options={[
+            { label: "Required and optional", value: "" },
+            { label: "Required", value: "required" },
+            { label: "Optional", value: "optional" }
+          ]}
+          onChange={(value) => update("required", value)}
+        />
         <label className="grid gap-1 text-sm font-medium text-ink/80">
           Search
           <span className="relative">

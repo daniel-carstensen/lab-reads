@@ -100,6 +100,10 @@ function normalizeUrl(value) {
   return url;
 }
 
+function parseRequiredStatus(value) {
+  return cleanValue(value).toLowerCase() === "required";
+}
+
 function buildPaper(issue, existingIds) {
   const fields = parseIssueForm(issue.body);
   const paperId = parsePaperId(fields.paper_id, issue.number);
@@ -110,6 +114,8 @@ function buildPaper(issue, existingIds) {
   const tags = parseTags(fields.tags, issue.number);
   const url = normalizeUrl(fields.url_or_doi);
   const reason = cleanValue(fields.why_should_the_lab_read_this);
+  const isRequired = parseRequiredStatus(fields.required_or_optional ?? fields.required_status);
+  const discussionLead = cleanValue(fields.discussion_lead);
   if (existingIds.has(paperId)) {
     throw new Error(`Issue #${issue.number}: Paper ID already exists: ${paperId}`);
   }
@@ -124,7 +130,8 @@ function buildPaper(issue, existingIds) {
     ...(url ? { url } : {}),
     tags,
     ...(reason ? { abstract: reason } : {}),
-    required: false,
+    required: isRequired,
+    ...(discussionLead ? { discussionLead } : {}),
     sourceIssue: issue.number
   };
 }
