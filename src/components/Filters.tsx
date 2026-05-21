@@ -11,6 +11,8 @@ export type FiltersState = {
 };
 
 const statuses: ReadingStatus[] = ["planned", "skimmed", "read", "deep_read", "presented"];
+const controlClass =
+  "font-sans rounded-md border border-ink/15 bg-white px-3 py-2 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-lagoon";
 
 export function Filters({
   filters,
@@ -43,7 +45,7 @@ export function Filters({
         <label className="grid gap-1 text-sm font-medium text-ink/80">
           Week
           <select
-            className="rounded-md border border-ink/15 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-lagoon"
+            className={controlClass}
             value={filters.week}
             onChange={(event) => update("week", event.target.value)}
           >
@@ -58,7 +60,7 @@ export function Filters({
         <label className="grid gap-1 text-sm font-medium text-ink/80">
           Member
           <select
-            className="rounded-md border border-ink/15 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-lagoon"
+            className={controlClass}
             value={filters.memberId}
             onChange={(event) => update("memberId", event.target.value)}
           >
@@ -73,7 +75,7 @@ export function Filters({
         <label className="grid gap-1 text-sm font-medium text-ink/80">
           Tag
           <select
-            className="rounded-md border border-ink/15 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-lagoon"
+            className={controlClass}
             value={filters.tag}
             onChange={(event) => update("tag", event.target.value)}
           >
@@ -88,7 +90,7 @@ export function Filters({
         <label className="grid gap-1 text-sm font-medium text-ink/80">
           Status
           <select
-            className="rounded-md border border-ink/15 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-lagoon"
+            className={controlClass}
             value={filters.status}
             onChange={(event) => update("status", event.target.value)}
           >
@@ -103,7 +105,7 @@ export function Filters({
         <label className="grid gap-1 text-sm font-medium text-ink/80">
           Type
           <select
-            className="rounded-md border border-ink/15 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-lagoon"
+            className={controlClass}
             value={filters.required}
             onChange={(event) => update("required", event.target.value)}
           >
@@ -117,7 +119,7 @@ export function Filters({
           <span className="relative">
             <Search className="pointer-events-none absolute left-3 top-2.5 h-4 w-4 text-ink/45" />
             <input
-              className="w-full rounded-md border border-ink/15 bg-white py-2 pl-9 pr-3 text-sm focus:outline-none focus:ring-2 focus:ring-lagoon"
+              className="w-full rounded-md border border-ink/15 bg-white py-2 pl-9 pr-3 font-sans text-sm text-ink focus:outline-none focus:ring-2 focus:ring-lagoon"
               value={filters.search}
               onChange={(event) => update("search", event.target.value)}
               placeholder="title, author, tag"

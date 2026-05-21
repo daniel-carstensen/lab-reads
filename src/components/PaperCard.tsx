@@ -32,8 +32,6 @@ export function PaperCard({
   const memberById = useMemo(() => new Map(members.map((member) => [member.id, member])), [members]);
   const paperLogs = logs.filter((log) => log.paperId === paper.id);
   const ratingsAverage = averageRating(paperLogs);
-  const notes = paperLogs.filter((log) => log.notes?.trim());
-  const questions = paperLogs.filter((log) => log.discussionQuestion?.trim());
   const reactionCounts = paperLogs.reduce<Record<string, number>>((counts, log) => {
     if (log.reaction) counts[log.reaction] = (counts[log.reaction] ?? 0) + 1;
     return counts;
@@ -150,88 +148,103 @@ export function PaperCard({
             className={`h-4 w-4 transition ${expanded ? "rotate-180" : ""}`}
             aria-hidden="true"
           />
-          {expanded ? "Hide notes" : "Show notes and IDs"}
+          {expanded ? "Hide logs" : "Show reader logs and IDs"}
         </button>
       </div>
 
       {expanded ? (
-        <div id={`${paper.id}-details`} className="border-t border-ink/10 px-5 py-5">
-          <div className="grid gap-5 lg:grid-cols-2">
-            <section aria-label="Paper identifiers">
+        <div id={`${paper.id}-details`} className="grid gap-5 border-t border-ink/10 p-4 sm:p-5">
+          <div className="grid gap-4 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+            <section aria-label="Paper identifiers" className="min-w-0">
               <h4 className="font-semibold text-ink">Copy-friendly IDs</h4>
-              <dl className="mt-3 grid gap-2 text-sm">
-                <div>
+              <dl className="mt-3 grid gap-3 text-sm sm:grid-cols-2 lg:grid-cols-1">
+                <div className="min-w-0 rounded-md bg-paper/70 p-3">
                   <dt className="font-medium text-ink/70">paperId</dt>
-                  <dd className="font-mono text-ink">{paper.id}</dd>
+                  <dd className="break-all font-mono text-ink">{paper.id}</dd>
                 </div>
-                <div>
+                <div className="min-w-0 rounded-md bg-paper/70 p-3">
                   <dt className="font-medium text-ink/70">member IDs</dt>
-                  <dd className="font-mono text-ink">{members.map((member) => member.id).join(", ")}</dd>
+                  <dd className="break-words font-mono text-ink">
+                    {members.map((member) => member.id).join(", ")}
+                  </dd>
                 </div>
                 {paper.doi ? (
-                  <div>
+                  <div className="min-w-0 rounded-md bg-paper/70 p-3 sm:col-span-2 lg:col-span-1">
                     <dt className="font-medium text-ink/70">DOI</dt>
-                    <dd className="font-mono text-ink">{paper.doi}</dd>
+                    <dd className="break-all font-mono text-ink">{paper.doi}</dd>
                   </div>
                 ) : null}
               </dl>
             </section>
-            <section aria-label="Reading summary">
-              <h4 className="font-semibold text-ink">Reading summary</h4>
-              <div className="mt-3 flex flex-wrap gap-2 text-sm">
-                {Object.entries(statusCounts).map(([status, count]) => (
-                  <span key={status} className="rounded-full bg-lagoon/10 px-2.5 py-1 text-lagoon">
-                    {status.replace("_", " ")}: {count}
-                  </span>
-                ))}
-                {Object.entries(reactionCounts).map(([reaction, count]) => (
-                  <span key={reaction} className="rounded-full bg-gold/10 px-2.5 py-1 text-ink">
-                    {reaction} x {count}
-                  </span>
-                ))}
-              </div>
-            </section>
-          </div>
 
-          <div className="mt-5 grid gap-5 lg:grid-cols-2">
-            <section aria-label="Notes">
-              <h4 className="font-semibold text-ink">Notes</h4>
-              {notes.length ? (
-                <ul className="mt-3 grid gap-3">
-                  {notes.map((log) => {
+            <section aria-label="Reader logs" className="min-w-0">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <h4 className="font-semibold text-ink">Reader logs</h4>
+                <div className="flex flex-wrap gap-1.5 text-xs">
+                  {Object.entries(statusCounts).map(([status, count]) => (
+                    <span key={status} className="rounded-full bg-lagoon/10 px-2 py-1 text-lagoon">
+                      {status.replace("_", " ")}: {count}
+                    </span>
+                  ))}
+                  {Object.entries(reactionCounts).map(([reaction, count]) => (
+                    <span key={reaction} className="rounded-full bg-gold/10 px-2 py-1 text-ink">
+                      {reaction} x {count}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {paperLogs.length ? (
+                <div className="mt-3 grid grid-cols-[repeat(auto-fit,minmax(min(100%,14rem),1fr))] gap-3">
+                  {paperLogs.map((log) => {
                     const member = memberById.get(log.memberId);
                     return (
-                      <li key={`${log.id}-note`} className="border-l-4 border-lagoon/30 pl-3 text-sm">
-                        <p className="text-ink/80">{log.notes}</p>
-                        <p className="mt-1 text-xs font-medium text-ink/55">
-                          {member?.displayName ?? log.memberId} on {log.date}
-                        </p>
-                      </li>
+                      <article key={`${log.id}-detail`} className="min-w-0 rounded-md border border-ink/10 bg-paper/70 p-3">
+                        <div className="flex items-start justify-between gap-2">
+                          <div className="min-w-0">
+                            <h5 className="truncate text-sm font-semibold text-ink">
+                              {member?.displayName ?? log.memberId}
+                            </h5>
+                            <p className="text-xs text-ink/55">{log.date}</p>
+                          </div>
+                          <span className="shrink-0 rounded-full bg-coral/10 px-2 py-1 text-xs font-semibold text-coral">
+                            {statusLabels[log.status]}
+                          </span>
+                        </div>
+                        <dl className="mt-3 grid gap-2 text-sm">
+                          {typeof log.rating === "number" ? (
+                            <div>
+                              <dt className="text-xs font-semibold uppercase tracking-wide text-ink/45">
+                                Rating
+                              </dt>
+                              <dd className="font-medium text-ink">{log.rating}/5</dd>
+                            </div>
+                          ) : null}
+                          {log.notes?.trim() ? (
+                            <div>
+                              <dt className="text-xs font-semibold uppercase tracking-wide text-ink/45">
+                                Note
+                              </dt>
+                              <dd className="text-ink/80">{log.notes}</dd>
+                            </div>
+                          ) : null}
+                          {log.discussionQuestion?.trim() ? (
+                            <div>
+                              <dt className="text-xs font-semibold uppercase tracking-wide text-ink/45">
+                                Question
+                              </dt>
+                              <dd className="text-ink/80">{log.discussionQuestion}</dd>
+                            </div>
+                          ) : null}
+                        </dl>
+                      </article>
                     );
                   })}
-                </ul>
+                </div>
               ) : (
-                <p className="mt-3 text-sm text-ink/55">No notes yet - the margins are waiting.</p>
-              )}
-            </section>
-            <section aria-label="Discussion questions">
-              <h4 className="font-semibold text-ink">Discussion questions</h4>
-              {questions.length ? (
-                <ul className="mt-3 grid gap-3">
-                  {questions.map((log) => {
-                    const member = memberById.get(log.memberId);
-                    return (
-                      <li key={`${log.id}-question`} className="border-l-4 border-coral/30 pl-3 text-sm">
-                        <p className="text-ink/80">{log.discussionQuestion}</p>
-                        <p className="mt-1 text-xs font-medium text-ink/55">
-                          {member?.displayName ?? log.memberId} on {log.date}
-                        </p>
-                      </li>
-                    );
-                  })}
-                </ul>
-              ) : (
-                <p className="mt-3 text-sm text-ink/55">No questions yet - discussion has room to bloom.</p>
+                <p className="mt-3 rounded-md border border-dashed border-ink/15 bg-paper/70 p-3 text-sm text-ink/55">
+                  No reading logs yet. Be the first to summon the Paper Goblin.
+                </p>
               )}
             </section>
           </div>
