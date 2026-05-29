@@ -13,5 +13,20 @@
     "abstract": "Interesting little paper demonstrating that very coarse category feedback is enough to align vision models with humans",
     "required": false,
     "sourceIssue": 1
+  },
+  {
+    "id": "linsley-2026-brainai",
+    "title": "Better artificial intelligence does not mean better models of biology",
+    "authors": "Linsley et al",
+    "year": 2026,
+    "week": "2026-W22",
+    "url": "https://doi.org/10.1016/j.tics.2025.11.016",
+    "tags": [
+      "vision",
+      "AI"
+    ],
+    "abstract": "Recent TICS paper from Thomas and Drew discussing disconnect between vision model performance and alignment",
+    "required": false,
+    "sourceIssue": 3
   }
 ]
