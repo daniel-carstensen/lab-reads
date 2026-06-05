@@ -20,5 +20,16 @@
     "reaction": "None",
     "date": "2026-06-05",
     "sourceIssue": 6
+  },
+  {
+    "id": "log-2026-06-05-serra-schuren-2026-stress-7",
+    "paperId": "schuren-2026-stress",
+    "memberId": "serra",
+    "status": "presented",
+    "rating": 2,
+    "notes": "Not sure about this one... Weak brain data. Main takeaway is that stress disrupts memory integration.",
+    "reaction": "None",
+    "date": "2026-06-05",
+    "sourceIssue": 7
   }
 ]
