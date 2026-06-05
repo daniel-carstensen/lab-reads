@@ -28,5 +28,23 @@
     "abstract": "Recent TICS paper from Thomas and Drew discussing disconnect between vision model performance and alignment",
     "required": false,
     "sourceIssue": 3
+  },
+  {
+    "id": "schuren-2026-stress",
+    "title": "Stress disrupts hippocampal integration of overlapping events and memory inference in humans",
+    "authors": "Schuren et al",
+    "year": 2026,
+    "week": "2026-W23",
+    "url": "https://www.science.org/doi/epdf/10.1126/sciadv.aea5496",
+    "tags": [
+      "memory",
+      "hippocampus",
+      "stress",
+      "reactivation"
+    ],
+    "abstract": "AB/BC inference with stress",
+    "required": false,
+    "discussionLead": "Serra",
+    "sourceIssue": 5
   }
 ]
