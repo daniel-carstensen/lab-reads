@@ -9,5 +9,16 @@
     "reaction": "🔥",
     "date": "2026-05-20",
     "sourceIssue": 2
+  },
+  {
+    "id": "log-2026-06-05-serra-linsley-2026-brainai-6",
+    "paperId": "linsley-2026-brainai",
+    "memberId": "serra",
+    "status": "read",
+    "rating": 4,
+    "notes": "Nice summary of recent progress in AI and (lack of) relationship to better neural alignment. Found a few useful references from this paper.",
+    "reaction": "None",
+    "date": "2026-06-05",
+    "sourceIssue": 6
   }
 ]
